@@ -1,0 +1,5 @@
+---
+
+ - name: Run IOS Module ios_commands to save config to startup
+   ios_config:
+     save_when: always

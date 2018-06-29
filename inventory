@@ -1,0 +1,16 @@
+
+[ios_switches:children]
+dist_switches
+access_switches
+
+[dist_switches]
+10.7.2.11
+10.7.2.12
+
+[access_switches]
+10.7.2.13
+10.7.2.14
+
+[routers]
+10.7.2.2
+10.7.2.3
