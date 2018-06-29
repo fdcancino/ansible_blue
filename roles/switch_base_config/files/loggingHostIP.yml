@@ -1,0 +1,11 @@
+---
+vars:
+  parsed_ip:
+    key: "{{ item.hostIP }}"
+    values:
+      empty: empty
+
+keys:
+  hosts:
+    value: "{{ parsed_ip }}"
+    items: "^logging\\s+host\\s+(?P<hostIP>\\S+)"

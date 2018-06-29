@@ -1,4 +1,7 @@
 
+[large_casino_properties:children]
+ios_switches
+
 [ios_switches:children]
 dist_switches
 access_switches

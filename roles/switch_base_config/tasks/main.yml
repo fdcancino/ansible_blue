@@ -1,9 +1,6 @@
 ---
 
- #- name: Add local user STNAdmin
-  # import_tasks: local_creds.yml
- - name: Remove all local users and only put STNAdmin and cisco
-   import_tasks: local_creds.yml
 
- - name: Change Spanning Tree Attributes
-   import_tasks: spanning_tree_priority.yml
+  #- import_tasks: local_creds.yml
+  #- import_tasks: spanning_tree_priority.yml
+  - import_tasks: logging.yml

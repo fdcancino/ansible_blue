@@ -1,11 +1,27 @@
 ---
 
-
-
- - name: Add local user STNAdmin
+ - name: Add local user "cisco"
    ios_user:
-    name: STNAdmin
-    configured_password: Hmp3rd1nk
+    name: cisco
+    configured_password: cisco
     update_password: always
     privilege: 15
     state: present
+
+ - name: Add local user "STNAdmin"
+   ios_user:
+    name: STNAdmin
+    configured_password: test
+    update_password: always
+    privilege: 15
+    state: present
+
+ - name: Remove username "techno"
+   ios_user:
+    name: techno
+    state: absent
+
+ - name: Remove username "STNAdmiin"
+   ios_user:
+    name: STNAdmiin
+    state: absent

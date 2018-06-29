@@ -1,0 +1,25 @@
+---
+
+ - name: find all logging hosts and register to variable
+   ios_command:
+    commands: show run | in logging
+   register: loggingHost
+
+ # - name: display loggingHost
+ #   debug:
+ #     msg: "{{ loggingHost }}"
+
+ - name: parse for the IP address
+   set_fact:
+     loggingHostIPs: "{{ loggingHost.stdout[0] | parse_cli('./roles/switch_base_config/files/loggingHostIP.yml')}}"
+
+ - name: remove all logging to hosts
+   ios_config:
+     lines: no logging host {{ item }}
+   with_items: "{{ loggingHostIPs.hosts.keys() }}"
+
+ - name: add logging to hosts
+   ios_logging:
+       dest: host
+       name: "{{ logging_host }}"
+       state: present
