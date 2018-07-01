@@ -1,7 +1,7 @@
 ---
 
 
-  - import_tasks: local_creds.yml
-  - import_tasks: spanning_tree_priority.yml
+  # - import_tasks: local_creds.yml
+  # - import_tasks: spanning_tree_priority.yml
   - import_tasks: logging.yml
-  - import_tasks: ntp.yml
+  # - import_tasks: ntp.yml
