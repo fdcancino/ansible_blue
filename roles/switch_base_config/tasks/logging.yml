@@ -9,7 +9,7 @@
  #   debug:
  #     msg: "{{ loggingHost }}"
 
- - name: parse for the IP address
+ - name: Parse the "show run | in logging_host" for only the IP address
    set_fact:
      loggingHostIPs: "{{ loggingHostOutput.stdout[0] | parse_cli('./roles/switch_base_config/files/loggingHostIP.yml')}}"
 
