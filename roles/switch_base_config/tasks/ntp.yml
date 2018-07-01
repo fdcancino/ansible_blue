@@ -1,0 +1,7 @@
+---
+
+ - name: ntp
+   ios_config:
+    lines:
+      - ntp server {{ ntp }} prefer
+      - ntp server {{ ntp2 }}
