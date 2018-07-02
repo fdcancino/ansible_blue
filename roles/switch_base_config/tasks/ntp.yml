@@ -1,7 +1,14 @@
 ---
 
- - name: ntp
+ - name: Set NTP Servers
    ios_config:
     lines:
       - ntp server {{ ntp }} prefer
       - ntp server {{ ntp2 }}
+
+
+ - name: Set clock timezone and daylight savings time
+   ios_config:
+    lines:
+     - clock timezone PST -8 0
+     - clock summer-time PST recurring
