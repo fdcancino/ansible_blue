@@ -1,0 +1,17 @@
+---
+
+ - name: SNMP
+   ios_config:
+    lines:
+      - snmp-server community Lala RW
+      - snmp-server community Lala RO
+      - snmp-server trap link ietf
+      - snmp-server location {{ property }}
+      - snmp-server contact me@me.com
+      - snmp-server enable traps cpu threshold
+      - snmp-server enable traps tty
+      - snmp-server enable traps envmon fan shutdown supply temperature status
+      - snmp-server enable traps entity
+      - snmp-server enable traps config
+      - snmp-server enable traps syslog
+      - snmp-server host {{ snmp_host }} Lala

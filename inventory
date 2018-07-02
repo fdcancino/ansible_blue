@@ -6,6 +6,15 @@ ios_switches
 dist_switches
 access_switches
 
+[boulder]
+10.7.2.15
+
+[palace]
+10.7.2.11
+10.7.2.12
+10.7.2.13
+10.7.2.14
+
 [dist_switches]
 10.7.2.11
 10.7.2.12
@@ -13,6 +22,7 @@ access_switches
 [access_switches]
 10.7.2.13
 10.7.2.14
+10.7.2.15
 
 [routers]
 10.7.2.2
