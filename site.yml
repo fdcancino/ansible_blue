@@ -1,7 +1,7 @@
 ---
 
-- hosts: ios_switches
+- hosts: all
   gather_facts: false
   roles:
-    - switch_base_config
+
     - save_config

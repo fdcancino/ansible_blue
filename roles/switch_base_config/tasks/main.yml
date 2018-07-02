@@ -8,3 +8,4 @@
   - import_tasks: bannermotd.yml
   - import_tasks: vtp.yml
   - import_tasks: ssh_acl.yml
+  - import_tasks: snmp.yml
