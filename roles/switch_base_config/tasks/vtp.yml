@@ -1,0 +1,5 @@
+---
+
+ - name: Turn off VTP
+   ios_config:
+    lines:  vtp mode off
