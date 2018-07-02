@@ -4,3 +4,4 @@
   gather_facts: false
   roles:
     - switch_base_config
+    - save_config
