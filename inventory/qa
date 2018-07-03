@@ -1,0 +1,3 @@
+[qa_5ks]
+10.241.10.49  ansible_network_os=nxos
+10.241.10.50  ansible_network_os=nxos

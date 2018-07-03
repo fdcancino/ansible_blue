@@ -1,0 +1,24 @@
+---
+
+ - name: Configure slot vlan on QA Nexus 5000
+   hosts: 10.241.10.49
+   gather_facts: false
+   connection: network_cli
+   tasks:
+
+      - name: Configure Vlan
+        nxos_config:
+          lines:
+            - name {{ item.name }}
+          parents: vlan {{ item.vlan }}
+        loop:
+           - { vlan: '261', name: 'QA-SSSlots-61'}
+           - { vlan: '262', name: 'QA-SSSlots-62'}
+
+      # - name: Configure Vlan
+      #   nxos_vlan:
+      #     vlan_id: 261
+      #     name: QA-SSSlots-61
+      #   # loop:
+      #   #   - { vlan: '261', name: 'QA-SSSlots-61'}
+      #   #   - { vlan: '262', name: 'QA-SSSlots-62'}
