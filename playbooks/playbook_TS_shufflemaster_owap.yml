@@ -1,0 +1,34 @@
+---
+
+- hosts: PS-PRD-CORE1
+  tasks:
+
+  - name: On PS-PRD-CORE1, Ensure VLAN 166 exists with the name OWAP and is active
+    nxos_vlan:
+     vlan_id: 166
+     admin_state: active
+     name: OWAP
+
+- hosts: PS-PRD-CORE2
+  tasks:
+
+  - name: On PS-PRD-CORE2,Ensure VLAN 166 exists with the name OWAP and is active
+    nxos_vlan:
+     vlan_id: 166
+     admin_state: active
+     name: OWAP
+
+- hosts: TS-PRD-ACCESS
+  tasks:
+
+  - name: Create vlan 166 with name OWAP
+    ios_vlan:
+     vlan_id: 166
+     name: OWAP
+     state: present
+
+  - name: On PS-PRD-CORE2,Ensure VLAN 166 exists with the name OWAP and is active
+    ios_l2_interface:
+     name: GigabitEthernet0/5
+     mode: trunk
+     trunk_vlans: 166
