@@ -1,7 +1,7 @@
 ---
 
  - name: Configure slot vlan on QA Nexus 5000
-   hosts: 10.241.10.49
+   hosts: qa_5ks
    gather_facts: false
    connection: network_cli
    tasks:
@@ -15,10 +15,11 @@
            - { vlan: '261', name: 'QA-SSSlots-61'}
            - { vlan: '262', name: 'QA-SSSlots-62'}
 
-      # - name: Configure Vlan
-      #   nxos_vlan:
-      #     vlan_id: 261
-      #     name: QA-SSSlots-61
-      #   # loop:
-      #   #   - { vlan: '261', name: 'QA-SSSlots-61'}
-      #   #   - { vlan: '262', name: 'QA-SSSlots-62'}
+      - name: Add vlan to trunk
+        nxos_config:
+          lines:
+            - switchport trunk allowed vlan add 261,262
+          parents: "{{ item }}"
+        with_items:
+          - interface port-channel1
+          - interface port-channel2
