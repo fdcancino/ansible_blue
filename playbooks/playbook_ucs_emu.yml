@@ -1,0 +1,29 @@
+---
+ - hosts: jayr_qa_ucs
+   connection: local
+   gather_facts: no
+   vars:
+     vlan_name: SLOTS
+     vlan_id: 4000
+   tasks:
+
+   - name: Configure VLAN
+     ucs_vlans:
+       hostname: 192.168.128.129
+       username: ucspe
+       password: ucspe
+       name: "{{ vlan_name }}"
+       id: '{{ vlan_id }}'
+
+   - name: Configure vNIC template
+     ucs_vnic_template:
+       hostname: 192.168.128.129
+       username: ucspe
+       password: ucspe
+       name: JAYR-A
+       template_type: updating-template
+       redundancy_type: primary
+       peer_redundancy_templ: JAYR-B
+       fabric: A-B
+       vlans_list:
+       - name: "{{ vlan_name }}"
