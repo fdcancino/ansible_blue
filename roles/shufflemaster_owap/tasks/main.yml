@@ -1,8 +1,10 @@
 ---
 
- - name: Ensure VLAN 166 exists with the name OWAP and is active
-   nxos_vlan:
-    vlan_id: 166
-    admin_state: active
-    name: OWAP
-   when: "'property_cores' in group_names"
+ - debug:
+     msg: "{{ alpha.test }} and {{ alpha.test2 }}"
+
+ - debug:
+      msg: "{{ bravo.test }} and {{ bravo.test2 }}"
+
+ - debug:
+      msg: "{{ bravo.test3.abc }}"
