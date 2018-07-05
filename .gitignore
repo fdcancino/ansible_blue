@@ -1,4 +1,3 @@
 roles/save_config/backup
 group_vars/
 host_vars/
-roles/switch_base_config/tasks/ssh_acl.yml
