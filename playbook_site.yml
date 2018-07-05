@@ -1,0 +1,6 @@
+---
+
+- hosts: 10.7.2.13
+  gather_facts: false
+  roles:
+    - roles/switch_base_config
