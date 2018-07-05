@@ -3,8 +3,8 @@
    connection: local
    gather_facts: no
    vars:
-     vlan_name: SLOTS
-     vlan_id: 4000
+     vlan_name: SLOTS101
+     vlan_id: 4001
    tasks:
 
    - name: Configure VLAN
