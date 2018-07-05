@@ -2,11 +2,18 @@
 
 
   - import_tasks: local_creds.yml
+    tags: LOCAL_ACCOUNT
   - import_tasks: spanning_tree_priority.yml
+    tags: SPANNING_TREE
   - import_tasks: logging.yml
+    tags: LOGGING
   - import_tasks: ntp.yml
+    tags: NTP
   - import_tasks: bannermotd.yml
+    tags: BANNER
   - import_tasks: vtp.yml
+    tags: VTP
   - import_tasks: ssh_acl.yml
     tags: ACL_SSH
   - import_tasks: snmp.yml
+    tags: SNMP
