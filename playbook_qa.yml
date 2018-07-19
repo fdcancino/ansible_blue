@@ -1,0 +1,9 @@
+---
+
+
+- hosts: qa
+  gather_facts: false
+  vars_files:
+    - qa_slot_large2_series5.yml
+  roles:
+    - roles/qa_slot_vlans
