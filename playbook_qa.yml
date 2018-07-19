@@ -4,6 +4,69 @@
 
 - hosts: qa_5ks
   gather_facts: false
+  connection: network_cli
+  tasks:
+
+  # vars_prompt:
+  #
+  #
+  #
+  # - name: "prompt_ucs_password"
+  #   prompt: "Enter UCS password"
+  #   private: yes
+# ADD VLANS to VLAN Database with a loop. In the external file, any item that is vlanid will
+# be added to the VLAN database
+  - name: Nexus 5k - Create VLANs in VLAN database
+    nxos_config:
+      lines:
+       - name {{ slot_property_name + '-' + item.vlanid}}
+      parents: vlan {{ item.vlanid }}
+    loop: "{{ qa_vlans }}"
+
+  - name: Nexus 5k - Add vlan to trunk Port-Channel 1
+    nxos_config:
+      lines:
+       - switchport trunk allowed vlan add {{ item.vlanid }}
+      parents: interface port-channel1
+    loop: "{{ qa_vlans }}"
+
+  - name: Nexus 5k - Add vlan to trunk Port-Channel 2
+    nxos_config:
+      lines:
+        - switchport trunk allowed vlan add {{ item.vlanid }}
+      parents: interface port-channel2
+    loop: "{{ qa_vlans }}"
+
+- hosts: co_qa_ucs
+  gather_facts: false
   connection: local
-  roles:
-    - roles/qa_slot_vlans
+  tasks:
+
+
+
+
+  - name: Add VLAN to VLAN under LAN
+    ucs_vlans:
+      hostname: 10.241.220.11
+      username: admin
+      password:
+      name: "{{ slot_property_name + '-' + item.vlanid }}"
+      id: '{{ item.vlanid }}'
+    loop: "{{ qa_vlans }}"
+
+  - name: Add VLAN to vNIC template
+    ucs_vnic_template:
+      hostname: 10.241.220.11
+      username: admin
+      password:
+      name: ESXI-VNICA
+      template_type: updating-template
+      redundancy_type: primary
+      mtu: 9000
+      network_control_policy: Enable
+      mac_pool:
+      peer_redundancy_templ: ESXI-VNICB
+      fabric: A-B
+      vlans_list:
+      - name: "{{ slot_property_name + '-' + item.vlanid }}"
+    loop: "{{ qa_vlans }}"

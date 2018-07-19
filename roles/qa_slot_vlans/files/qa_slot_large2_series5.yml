@@ -1,8 +1,0 @@
-slot_property_name: LGPROP2
-
-vlans:
-  - { vlanid: '561' }
-  - { vlanid: '562' }
-  - { vlanid: '563' }
-  - { vlanid: '565' }
-  - { vlanid: '3805' }

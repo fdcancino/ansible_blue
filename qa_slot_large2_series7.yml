@@ -1,0 +1,8 @@
+slot_property_name: LGPROP2
+
+qa_vlans:
+  - { vlanid: '761' }
+  - { vlanid: '762' }
+  - { vlanid: '763' }
+  - { vlanid: '765' }
+  - { vlanid: '3807' }

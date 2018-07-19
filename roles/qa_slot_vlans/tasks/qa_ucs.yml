@@ -2,22 +2,22 @@
 
 - name: Add VLAN to VLAN under LAN
   ucs_vlans:
-   hostname: 192.168.128.132
-   username: ucspe
-   password: ucspe
+   hostname: 10.241.220.11
+   username: fdelac
+   password: testtt
    name: "{{ slot_property_name + '-' + item.vlanid }}"
    id: '{{ item.vlanid }}'
   loop: "{{ vlans }}"
 
 - name: Configure vNIC template
   ucs_vnic_template:
-    hostname: 192.168.128.132
-    username: ucspe
-    password: ucspe
-    name: JAYR-A
+    hostname: 10.241.220.11
+    username: fdelac
+    password: testttt
+    name: ESXI-VNICA
     template_type: updating-template
     redundancy_type: primary
-    peer_redundancy_templ: JAYR-B
+    peer_redundancy_templ: ESXI-VNICB
     fabric: A-B
     vlans_list:
     - name: "{{ slot_property_name + '-' + item.vlanid }}"
