@@ -1,25 +1,73 @@
 ---
 
- - name: Configure slot vlan on QA Nexus 5000
-   hosts: qa_5ks
+ # - name: Configure slot vlan on QA Nexus 5000
+ #   hosts: qa_5ks
+ #   gather_facts: false
+ #   connection: network_cli
+ #   tasks:
+ #
+ #   vars:
+ #     LGPROP2:
+ #      - { vlan_id: '761', vlan_name: 'LGPROP2-761' }
+ #      - { vlan_id: '762', vlan_name: 'LGPROP2-762' }
+ #      - { vlan_id: '763', vlan_name: 'LGPROP2-761' }
+ #      - { vlan_id: '765', vlan_name: 'LGPROP2-762' }
+ #      - { vlan_id: '3907', vlan_name: 'LGPROP2-3907' }
+ #
+ #
+ #      - name: Configure Vlan
+ #        nxos_config:
+ #          lines:
+ #            - name {{ item.vlan_name }}
+ #          parents: vlan {{ item.vlan_id}}
+ #        loop: "{{ LGPROP2 }}"
+ #
+ #      - name: Add vlan to trunk Port-Channel 1
+ #        nxos_config:
+ #          lines:
+ #            - switchport trunk allowed vlan add {{ item.vlan_id }}
+ #          parents: interface port-channel1
+ #        loop: "{{ LGPROP2 }}"
+ #
+ #      - name: Add vlan to trunk Port-Channel 2
+ #        nxos_config:
+ #          lines:
+ #            - switchport trunk allowed vlan add {{ item.vlan_id }}
+ #          parents: interface port-channel2
+ #        loop: "{{ LGPROP2 }}"
+
+ - name: Configure slot vlan on UCS
+   hosts: jayr_qa_ucs
    gather_facts: false
-   connection: network_cli
+   connection: local
+   vars:
+     slot_properties:
+      LGPROP2:
+
+         - { vlan_id: '461'}
+         # - { vlan_id: '462'}
+         # - { vlan_id: '463'}
+         # - { vlan_id: '465'}
+         # - { vlan_id: '3904'}
+
+
+      LGPROP3:
+
+         - { vlan_id: '361'}
+         # - { vlan_id: '362'}
+         # - { vlan_id: '363'}
+         # - { vlan_id: '365'}
+
    tasks:
 
-      - name: Configure Vlan
-        nxos_config:
-          lines:
-            - name {{ item.name }}
-          parents: vlan {{ item.vlan }}
-        loop:
-           - { vlan: '261', name: 'QA-SSSlots-61'}
-           - { vlan: '262', name: 'QA-SSSlots-62'}
 
-      - name: Add vlan to trunk
-        nxos_config:
-          lines:
-            - switchport trunk allowed vlan add 261,262
-          parents: "{{ item }}"
-        with_items:
-          - interface port-channel1
-          - interface port-channel2
+
+
+    - name: Configure VLAN
+      ucs_vlans:
+       hostname: 192.168.128.132
+       username: ucspe
+       password: ucspe
+       name: "{{ 'lala' + '-' + item.value.vlan_id }}"
+       id: '{{ item.value.vlan_id  }}'
+      loop: "{{ slot_properties | dict2items }}"
