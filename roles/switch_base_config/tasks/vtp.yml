@@ -2,4 +2,4 @@
 
  - name: Turn off VTP
    ios_config:
-    lines:  vtp mode off
+    lines:  vtp mode transparent

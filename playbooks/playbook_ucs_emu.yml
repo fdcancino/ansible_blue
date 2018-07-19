@@ -2,22 +2,39 @@
  - hosts: jayr_qa_ucs
    connection: local
    gather_facts: no
-   vars:
-     vlan_name: SLOTS101
-     vlan_id: 4001
+   # vars:
+   #   vlan_name: SHAWN
+   #   vlan_id: 999
    tasks:
 
    - name: Configure VLAN
      ucs_vlans:
-       hostname: 192.168.128.129
+       hostname: 192.168.128.132
        username: ucspe
        password: ucspe
-       name: "{{ vlan_name }}"
-       id: '{{ vlan_id }}'
+       name: "{{ item.vlan_name }}"
+       id: '{{ item.vlan_id }}'
+     loop:
+         - { vlan_id: '100', vlan_name: 'SUNSET100'}
+         - { vlan_id: '101', vlan_name: 'SUNSET101'}
+         - { vlan_id: '102', vlan_name: 'SUNSET102'}
+
+   - name: Remove VLAN
+     ucs_vlans:
+       hostname: 192.168.128.132
+       username: ucspe
+       password: ucspe
+       name: "{{ item.vlan_name}}"
+       state: absent
+     loop:
+       - { vlan_id: '100', vlan_name: 'SUNSET100'}
+       - { vlan_id: '101', vlan_name: 'SUNSET101'}
+       - { vlan_id: '102', vlan_name: 'SUNSET102'}
+
 
    - name: Configure vNIC template
      ucs_vnic_template:
-       hostname: 192.168.128.129
+       hostname: 192.168.128.132
        username: ucspe
        password: ucspe
        name: JAYR-A
@@ -26,4 +43,9 @@
        peer_redundancy_templ: JAYR-B
        fabric: A-B
        vlans_list:
-       - name: "{{ vlan_name }}"
+       - name: "{{ item.vlan_name }}"
+         state: absent
+     loop:
+        - { vlan_id: '100', vlan_name: 'SUNSET100'}
+        - { vlan_id: '101', vlan_name: 'SUNSET101'}
+        - { vlan_id: '102', vlan_name: 'SUNSET102'}
