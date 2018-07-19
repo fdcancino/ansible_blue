@@ -1,0 +1,27 @@
+---
+# use the following command line ansible-playbook playbook_n5k_qa_only.yml --extra-vars "@files/qa_vlan_225.yml"
+- hosts: qa_5ks
+  gather_facts: false
+  connection: network_cli
+  tasks:
+
+  - name: Nexus 5k - Create VLANs in VLAN database
+    nxos_config:
+      lines:
+       - name {{ vlan_name + '-' + item.vlanid}}
+      parents: vlan {{ item.vlanid }}
+    loop: "{{ qa_vlans }}"
+
+  - name: Nexus 5k - Add vlan to trunk Port-Channel 1
+    nxos_config:
+      lines:
+       - switchport trunk allowed vlan add {{ item.vlanid }}
+      parents: interface port-channel1
+    loop: "{{ qa_vlans }}"
+
+  - name: Nexus 5k - Add vlan to trunk Port-Channel 2
+    nxos_config:
+      lines:
+        - switchport trunk allowed vlan add {{ item.vlanid }}
+      parents: interface port-channel2
+    loop: "{{ qa_vlans }}"
