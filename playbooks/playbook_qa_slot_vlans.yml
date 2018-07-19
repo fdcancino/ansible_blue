@@ -40,23 +40,8 @@
    hosts: jayr_qa_ucs
    gather_facts: false
    connection: local
-   vars:
-     slot_properties:
-      LGPROP2:
-
-         - { vlan_id: '461'}
-         # - { vlan_id: '462'}
-         # - { vlan_id: '463'}
-         # - { vlan_id: '465'}
-         # - { vlan_id: '3904'}
-
-
-      LGPROP3:
-
-         - { vlan_id: '361'}
-         # - { vlan_id: '362'}
-         # - { vlan_id: '363'}
-         # - { vlan_id: '365'}
+   vars_files:
+    - qa_slot_large2.yml
 
    tasks:
 
@@ -68,6 +53,6 @@
        hostname: 192.168.128.132
        username: ucspe
        password: ucspe
-       name: "{{ 'lala' + '-' + item.value.vlan_id }}"
-       id: '{{ item.value.vlan_id  }}'
-      loop: "{{ slot_properties | dict2items }}"
+       name: "{{ slot_property_name + '-' + item.vlanid }}"
+       id: '{{ item.vlanid }}'
+      loop: "{{ vlans }}"
