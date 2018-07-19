@@ -44,7 +44,6 @@
        fabric: A-B
        vlans_list:
        - name: "{{ item.vlan_name }}"
-         state: absent
      loop:
         - { vlan_id: '100', vlan_name: 'SUNSET100'}
         - { vlan_id: '101', vlan_name: 'SUNSET101'}
