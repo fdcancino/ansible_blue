@@ -1,0 +1,10 @@
+---
+
+- name: Add VLAN to VLAN under LAN
+  ucs_vlans:
+   hostname: 192.168.128.132
+   username: ucspe
+   password: ucspe
+   name: "{{ slot_property_name + '-' + item.vlanid }}"
+   id: '{{ item.vlanid }}'
+  loop: "{{ vlans }}"
