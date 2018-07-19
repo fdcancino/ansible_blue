@@ -5,7 +5,5 @@
 - hosts: qa_5ks
   gather_facts: false
   connection: local
-  # vars_files:
-  #   - roles/qa_slot_vlans/files/qa_slot_large2_series5.yml
   roles:
     - roles/qa_slot_vlans
