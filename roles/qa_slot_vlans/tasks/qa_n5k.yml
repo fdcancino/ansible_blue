@@ -3,7 +3,7 @@
 - name: Nexus 5k - Create VLANs in VLAN database
   nxos_config:
     lines:
-     - name {{ name + '-' + item.vlanid}}
+     - name {{ slot_property_name + '-' + item.vlanid}}
     parents: vlan {{ item.vlanid }}
   loop: "{{ vlans }}"
 
