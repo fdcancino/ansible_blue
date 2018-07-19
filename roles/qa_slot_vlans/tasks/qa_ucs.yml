@@ -21,4 +21,4 @@
     fabric: A-B
     vlans_list:
     - name: "{{ slot_property_name + '-' + item.vlanid }}"
-    loop: "{{ vlans }}"
+  loop: "{{ vlans }}"
