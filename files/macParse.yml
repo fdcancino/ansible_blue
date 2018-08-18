@@ -1,0 +1,33 @@
+---
+vars:
+  mac:
+    key: "{{ item.macAddress }}"
+    values:
+      interface: "{{ item.macInterface }}"
+
+
+
+keys:
+  macTableDict:
+    value: "{{ mac }}"
+    items: "^\\s+(?P<vlan_id>\\d+)\\s+(?P<macAddress>\\S+)\\s+(?P<type>\\w+)\\s+(?P<macInterface>\\S+)"
+
+    #  OUTPUT
+    #  "macTableDict": {
+    #         "000c.29c8.ab2c": {
+    #             "interface": "Gi0/2"
+    #         },
+    #         "0050.56c0.0002": {
+    #             "interface": "Gi0/2"
+    #         },
+    #         "0050.7966.6800": {
+    #             "interface": "Gi1/0"
+    #         },
+    #         "0050.7966.6801": {
+    #             "interface": "Gi1/1"
+    #         },
+    #         "52a8.2124.3101": {
+    #             "interface": "Gi0/1"
+    #         }
+    #     }
+    # }

@@ -5,14 +5,14 @@ ios_switches
 [ios_switches:children]
 dist_switches
 access_switches
+palace
 
 [boulder]
 10.7.2.15
 
 [palace]
-10.7.2.11
+SW1 ansible_host=10.7.2.11
 10.7.2.12
-10.7.2.13
 10.7.2.14
 
 [dist_switches]
@@ -27,3 +27,6 @@ access_switches
 [routers]
 10.7.2.2
 10.7.2.3
+
+[palace_test]
+PS-OLDIT-SW-13 ansible_host=10.7.2.13

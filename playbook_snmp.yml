@@ -1,0 +1,12 @@
+---
+
+- hosts: palace_test
+  gather_facts: false
+  connection: network_cli
+  tasks:
+
+   - name:
+     ios_config:
+       lines:
+         - description {{ inventory_hostname | regex_replace('..-(.+)-(S.+)', '\1' )}}
+       parents: int g0/1

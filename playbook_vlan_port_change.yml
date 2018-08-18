@@ -1,0 +1,68 @@
+---
+
+- hosts: SW1
+  gather_facts: false
+  connection: network_cli
+  vars:
+    interfaceList: []
+  tasks:
+
+   - name: Get Mac Address Table
+     ios_command:
+      commands: show mac address-table dynamic
+     register: macTable
+
+   - name: Display Mac Table
+     debug:
+      msg: "{{ macTable }}"
+
+   - name: PARSE
+     set_fact:
+       parsedMacTable: "{{ macTable.stdout[0] | parse_cli('./files/macParse.yml') }}"
+
+   - name: Display Parsed Mac Table
+     debug:
+        msg: "{{ parsedMacTable }}"
+
+   - name: Display Parsed Mac Table
+     debug:
+        msg: "{{ parsedMacTable.macTableDict.keys() }}"
+
+   - name: Make a list
+     set_fact:
+        macList: "{{ parsedMacTable.macTableDict.keys() }}"
+
+   - name: get the file contents
+     command: cat ./files/mac_list.yml
+     register: macFile
+
+   - name: Make a list
+     set_fact:
+        macListFile: "{{ macFile.stdout_lines }}"
+
+   - name: Intersect the lists
+     set_fact:
+        toChange: "{{ macList | intersect(macListFile) }}"
+
+
+   - name: Display intersect
+     debug:
+        msg: "{{ toChange }}"
+
+   - name: Create new list with interfaces to be changed
+     set_fact:
+        interfaceList: "{{ interfaceList }} + ['{{parsedMacTable.macTableDict[item].interface}}']"
+     with_items: "{{ toChange }}"
+   #
+   - name: Display interfaces to change
+     debug:
+        msg: "{{ interfaceList }}"
+
+
+
+   - name: Change interfaces
+     ios_config:
+       parents: interface {{ item }}
+       lines:
+         - description ansible change
+     with_items: "{{ interfaceList  }}"
